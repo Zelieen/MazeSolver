@@ -36,11 +36,14 @@ class Cell:
                 ).draw(canvas, fill_color=fill_color)
         
     def get_center(self):
-        c_x = int((self._x1 + self._x2) / 2)
-        c_y = int((self._y1 + self._y2) / 2)
+        c_x = (self._x1 + self._x2) // 2
+        c_y = (self._y1 + self._y2) // 2
         return Point(c_x, c_y)
     
     def draw_path(self, to_cell, undo=False):
+        if self._win == None:
+            return
+        
         c1 = self.get_center()
         c2 = to_cell.get_center()
 
