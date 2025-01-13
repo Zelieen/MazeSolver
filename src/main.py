@@ -1,4 +1,5 @@
-from window import Window, Line, Point, Cell
+from window import Window, Line, Point
+from cell import Cell
 
 def main():
     win = Window(800, 600)
@@ -27,6 +28,9 @@ def main():
     c5.up_wall = False
     c5.down_wall = False
     win.draw_cell(c5)
+
+    c1.draw_path(c2)
+    c3.draw_path(c4, True)
 
     win.wait_for_close()
 
