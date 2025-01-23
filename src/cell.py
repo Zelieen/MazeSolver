@@ -1,7 +1,7 @@
 from window import Point, Line
 
 class Cell:
-    def __init__(self, point, size, window):
+    def __init__(self, point, size, window=None):
         self._x1 = point.x
         self._x2 = point.x + size
         self._y1 = point.y
@@ -14,26 +14,35 @@ class Cell:
         self.down_wall = True
 
     def draw(self, canvas, fill_color="black"):
-        if self.left_wall:
-            Line(
-                Point(self._x1, self._y1),
-                Point(self._x1, self._y2)
-                ).draw(canvas, fill_color=fill_color)
-        if self.right_wall:
-            Line(
-                Point(self._x2, self._y1),
-                Point(self._x2, self._y2)
-                ).draw(canvas, fill_color=fill_color)
-        if self.up_wall:
-            Line(
-                Point(self._x1, self._y1),
-                Point(self._x2, self._y1)
-                ).draw(canvas, fill_color=fill_color)
-        if self.down_wall:
-            Line(
-                Point(self._x1, self._y2),
-                Point(self._x2, self._y2)
-                ).draw(canvas, fill_color=fill_color)
+        color = fill_color
+        if not self.left_wall:
+            color = "grey"
+        Line(
+            Point(self._x1, self._y1),
+            Point(self._x1, self._y2)
+            ).draw(canvas, fill_color=color)
+        color = fill_color
+        if not self.right_wall:
+            color = "grey"
+        Line(
+            Point(self._x2, self._y1),
+            Point(self._x2, self._y2)
+            ).draw(canvas, fill_color=color)
+        color = fill_color
+        if not self.up_wall:
+            color = "grey"
+        
+        Line(
+            Point(self._x1, self._y1),
+            Point(self._x2, self._y1)
+            ).draw(canvas, fill_color=color)
+        color = fill_color
+        if not self.down_wall:
+            color = "grey"
+        Line(
+            Point(self._x1, self._y2),
+            Point(self._x2, self._y2)
+            ).draw(canvas, fill_color=color)
         
     def get_center(self):
         c_x = (self._x1 + self._x2) // 2
