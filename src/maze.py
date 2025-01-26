@@ -26,8 +26,11 @@ class Maze:
 
         self._cells = []
         self._create_cells()
-        self._break_entrance_and_exit()
-        self._break_walls_r(0, 0)
+        if len(self._cells) > 0:
+            if len(self._cells[0]) > 0:
+                self._break_entrance_and_exit()
+                self._break_walls_r(0, 0)
+                self._reset_cells_visited()
 
     def _create_cells(self):
         for c in range(self.num_cols):
@@ -51,6 +54,8 @@ class Maze:
         sleep(0.1)
 
     def _break_entrance_and_exit(self):
+        if len(self._cells) < 1:
+            return
         self._cells[0][0].up_wall = False
         if self._win:
             self._draw_cell(0, 0)
@@ -90,7 +95,7 @@ class Maze:
             else:
                 # choose a neighbour
                 move_to = random.choice(to_vis)
-                to_vis.remove(move_to)
+                #to_vis.remove(move_to)
                 direc, col, row = move_to
                 next_cell = self._cells[col][row]
                 # remove walls
@@ -98,3 +103,8 @@ class Maze:
                 next_cell.make_wall(direc, inv_direction=True)
                 # move to neighbour
                 self._break_walls_r(col, row)
+
+    def _reset_cells_visited(self):
+        for col in range(len(self._cells)):
+            for row in range(len(self._cells[col])):
+                self._cells[col][row].visited = False
