@@ -13,6 +13,8 @@ class Cell:
         self.up_wall = True
         self.down_wall = True
 
+        self.visited = False
+
     def draw(self, canvas, fill_color="black"):
         color = fill_color
         if not self.left_wall:
@@ -61,3 +63,24 @@ class Cell:
             fill_color = "yellow"
 
         Line(c1, c2).draw(self._win.canvas, fill_color=fill_color)
+
+    def make_wall(self, direction, state=False, inv_direction=False):
+        direc = direction
+        if inv_direction:
+            if direction == "up":
+                direc = "down"
+            if direction == "down":
+                direc = "up"
+            if direction == "left":
+                direc = "right"
+            if direction == "right":
+                direc = "left"
+
+        if direc == "up":
+            self.up_wall = state
+        if direc == "down":
+            self.down_wall = state
+        if direc == "left":
+            self.left_wall = state
+        if direc == "right":
+            self.right_wall = state
