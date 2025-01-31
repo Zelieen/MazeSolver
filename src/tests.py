@@ -86,6 +86,7 @@ class Tests(unittest.TestCase):
             m1._cells[0][0].visited,
             False,
         )
+    
 
 if __name__ == "__main__":
     unittest.main()
